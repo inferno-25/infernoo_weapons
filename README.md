@@ -1,4 +1,4 @@
-# infernoo_weapons
+# infernoo_weaponmenu
 Weapons Menu for Fivem Using NativeUI, ACE Permissions, and WEBHOOK logs for unauthorized access
 
 1. Download infernoo_weapons
