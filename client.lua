@@ -34,10 +34,18 @@ local function AddWeaponSubMenu(menu, weapon)
     end
 
     for _, component in ipairs(weapon.components) do
-        local item = NativeUI.CreateItem(component.displayName, "Select this component")
+        local item = NativeUI.CreateItem(component.displayName, "Toggle this component")
         submenu:AddItem(item)
         item.Activated = function(sender, item)
-            GiveWeaponComponentToPed(PlayerPedId(), GetHashKey(weapon.name), GetHashKey(component.name))
+            local ped = PlayerPedId()
+            local weaponHash = GetHashKey(weapon.name)
+            local componentHash = GetHashKey(component.name)
+
+            if HasPedGotWeaponComponent(ped, weaponHash, componentHash) then
+                RemoveWeaponComponentFromPed(ped, weaponHash, componentHash)
+            else
+                GiveWeaponComponentToPed(ped, weaponHash, componentHash)
+            end
         end
     end
 
@@ -82,3 +90,5 @@ RegisterCommand('openWeaponMenu', function()
 end, false)
 
 RegisterKeyMapping('openWeaponMenu', 'Open Weapon Menu', 'keyboard', 'F5') -- Default keybind is F5
+
+
